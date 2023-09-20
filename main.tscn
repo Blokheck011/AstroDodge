@@ -1,0 +1,271 @@
+[gd_scene load_steps=37 format=3 uid="uid://dqeo1gefxj264"]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_dl0ml"]
+[ext_resource type="Texture2D" uid="uid://dd3hcd707b07m" path="res://resources/images/italainnazihideout.jpg" id="2_qedbi"]
+[ext_resource type="Shader" path="res://shaders/chromaticaberration.gdshader" id="3_0mo5n"]
+[ext_resource type="Script" path="res://scripts/Player.gd" id="4_qanpq"]
+[ext_resource type="Texture2D" uid="uid://copojw3iu5hec" path="res://resources/images/vignette.png" id="4_sguvh"]
+[ext_resource type="ArrayMesh" uid="uid://bjn2ono45qrf" path="res://resources/models/spaceship.obj" id="5_tlkt1"]
+[ext_resource type="Texture2D" uid="uid://bywlt6mgxd8e5" path="res://resources/images/Smoke30Frames_0.png" id="7_ab8an"]
+[ext_resource type="Shader" path="res://shaders/particle.gdshader" id="7_hau2q"]
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_ftvdq"]
+rayleigh_coefficient = 1.0
+rayleigh_color = Color(0.00392157, 0.00392157, 0.00392157, 1)
+mie_coefficient = 1.0
+mie_eccentricity = 0.0
+turbidity = 0.0
+sun_disk_scale = 0.0
+ground_color = Color(0, 0, 0, 1)
+night_sky = ExtResource("2_qedbi")
+
+[sub_resource type="Sky" id="Sky_bae8t"]
+sky_material = SubResource("PhysicalSkyMaterial_ftvdq")
+
+[sub_resource type="Environment" id="Environment_t4lys"]
+background_mode = 1
+sky = SubResource("Sky_bae8t")
+sky_rotation = Vector3(0, 3.14159, 0)
+glow_strength = 2.0
+glow_blend_mode = 4
+volumetric_fog_density = 0.0
+
+[sub_resource type="CameraAttributesPhysical" id="CameraAttributesPhysical_g4px6"]
+frustum_focus_distance = 4000.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_65j5g"]
+shader = ExtResource("3_0mo5n")
+shader_parameter/strength = 1.0
+shader_parameter/offset_image = ExtResource("4_sguvh")
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_osnef"]
+points = PackedVector3Array(1.60731, 0.100423, 0.29867, 0.0458933, 0.0425643, -1.95682, 0.161589, -0.1309, 1.74472, 1.08684, -0.246618, 0.29867, -1.6309, 0.100423, 0.29867, -0.0694853, 0.852253, -0.56838, -1.11043, -0.246618, 0.29867, 0.103583, 0.100423, 1.74472, -0.105943, 0.80368, 0.176888, 1.14453, -0.188759, -0.395187, 1.31791, 0.216142, 0.587807, 0.103583, 0.852253, -0.51077, -1.3415, 0.216142, 0.587807, -1.16812, -0.188759, -0.395187, 1.60731, 0.100423, 0.125115, -0.0694853, 0.0425643, -1.95682, -0.127175, 0.100423, 1.74472, -1.51521, 0.100423, 0.00953242, 1.37592, -0.188759, 0.356642, -0.0646453, -0.03908, -1.69533, -1.54224, -0.0508753, 0.276508, -1.11043, -0.246618, 0.356642, 1.08684, -0.246618, 0.356642, 1.20222, -0.188759, -0.337215, -1.6309, 0.100423, 0.183087, -1.3415, -0.188759, 0.125115, -1.51521, 0.158283, 0.414252, 0.161589, 0.0425643, 1.74472, 1.5295, -0.0535885, 0.279221, -1.54548, -0.0516854, 0.167833, 1.49161, 0.158283, 0.414252, -0.112637, -0.123176, 1.51152)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_magjy"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.839216, 0.839216, 0.839216, 1)
+metallic = 0.75
+roughness = 0.75
+emission_enabled = true
+emission = Color(0.517647, 0.517647, 0.517647, 1)
+emission_energy_multiplier = 0.1
+anisotropy = -1.0
+subsurf_scatter_strength = 0.53
+
+[sub_resource type="Gradient" id="Gradient_3idim"]
+offsets = PackedFloat32Array(0, 0.227642, 0.292683, 0.365854, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.898039, 0.172549, 0, 1, 1, 1, 0, 1, 0.898039, 0.258824, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_u5ruv"]
+gradient = SubResource("Gradient_3idim")
+
+[sub_resource type="Curve" id="Curve_ug5ln"]
+max_value = 66.5
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.519, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_pcjbs"]
+curve = SubResource("Curve_ug5ln")
+
+[sub_resource type="Curve" id="Curve_7pdo7"]
+_data = [Vector2(0.402597, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_dvab0"]
+curve = SubResource("Curve_7pdo7")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_i4fhm"]
+lifetime_randomness = 0.6
+direction = Vector3(0, 0, 1)
+spread = 10.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_max = 5.0
+angular_velocity_max = 1.0
+linear_accel_max = 100.0
+linear_accel_curve = SubResource("CurveTexture_pcjbs")
+angle_max = 360.0
+scale_max = 300.0
+scale_curve = SubResource("CurveTexture_dvab0")
+color_ramp = SubResource("GradientTexture1D_u5ruv")
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+anim_offset_min = 1.0
+anim_offset_max = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aa5s2"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("7_ab8an")
+billboard_mode = 3
+particles_anim_h_frames = 6
+particles_anim_v_frames = 6
+particles_anim_loop = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_0hap2"]
+material = SubResource("StandardMaterial3D_aa5s2")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2oor4"]
+size = Vector3(1, 20, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_n41h4"]
+size = Vector3(1, 20, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vegem"]
+shading_mode = 0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_esws5"]
+size = Vector3(40, 0.5, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_xunt0"]
+size = Vector3(40, 1, 1)
+
+[sub_resource type="Gradient" id="Gradient_6flpu"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_gu5ai"]
+gradient = SubResource("Gradient_6flpu")
+
+[sub_resource type="Curve" id="Curve_8cy8k"]
+max_value = 1024.0
+_data = [Vector2(0, 1), 0.0, 1023.0, 0, 0, Vector2(0.194805, 280.253), 5098.44, 5098.44, 0, 0, Vector2(0.350649, 1024), 3095.6, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_q7njx"]
+curve = SubResource("Curve_8cy8k")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3tx3q"]
+lifetime_randomness = 1.0
+emission_shape = 3
+emission_box_extents = Vector3(5, 5, 0.1)
+direction = Vector3(0, 0, 1)
+gravity = Vector3(0, 0, 1)
+linear_accel_max = 100.0
+linear_accel_curve = SubResource("CurveTexture_q7njx")
+color_ramp = SubResource("GradientTexture1D_gu5ai")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_huahr"]
+render_priority = 0
+shader = ExtResource("7_hau2q")
+
+[sub_resource type="BoxMesh" id="BoxMesh_svfeb"]
+material = SubResource("ShaderMaterial_huahr")
+size = Vector3(0.1, 0.1, 0.2)
+
+[node name="Main" type="Node"]
+script = ExtResource("1_dl0ml")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
+current = true
+fov = 90.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Camera3D"]
+environment = SubResource("Environment_t4lys")
+camera_attributes = SubResource("CameraAttributesPhysical_g4px6")
+
+[node name="Effects" type="CanvasLayer" parent="Camera3D"]
+
+[node name="Chromatic Aberration" type="ColorRect" parent="Camera3D/Effects"]
+material = SubResource("ShaderMaterial_65j5g")
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="the SUN" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 10, 0)
+shadow_enabled = true
+
+[node name="Player" type="CharacterBody3D" parent="."]
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+motion_mode = 1
+script = ExtResource("4_qanpq")
+speed = 10
+
+[node name="SpaceshipCollision" type="CollisionShape3D" parent="Player"]
+shape = SubResource("ConvexPolygonShape3D_osnef")
+
+[node name="Spaceship" type="MeshInstance3D" parent="Player"]
+layers = 4
+mesh = ExtResource("5_tlkt1")
+surface_material_override/0 = SubResource("StandardMaterial3D_magjy")
+
+[node name="ExhaustFlames" type="GPUParticles3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0571581, 1.79402)
+amount = 300
+lifetime = 0.5
+randomness = 1.0
+visibility_aabb = AABB(-1.5, -1.5, -1, 3, 3, 10)
+local_coords = true
+trail_lifetime = 2.41
+process_material = SubResource("ParticleProcessMaterial_i4fhm")
+draw_pass_1 = SubResource("QuadMesh_0hap2")
+
+[node name="borders" type="Node" parent="."]
+
+[node name="wall left" type="StaticBody3D" parent="borders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, 0)
+visible = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="borders/wall left"]
+shape = SubResource("BoxShape3D_2oor4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="borders/wall left"]
+gi_mode = 0
+mesh = SubResource("BoxMesh_n41h4")
+surface_material_override/0 = SubResource("StandardMaterial3D_vegem")
+
+[node name="wall right" type="StaticBody3D" parent="borders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, 0)
+visible = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="borders/wall right"]
+shape = SubResource("BoxShape3D_2oor4")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="borders/wall right"]
+gi_mode = 0
+mesh = SubResource("BoxMesh_n41h4")
+skeleton = NodePath("../../wall left")
+surface_material_override/0 = SubResource("StandardMaterial3D_vegem")
+
+[node name="ground" type="StaticBody3D" parent="borders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
+visible = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="borders/ground"]
+shape = SubResource("BoxShape3D_esws5")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="borders/ground"]
+gi_mode = 0
+mesh = SubResource("BoxMesh_xunt0")
+skeleton = NodePath("../../wall left")
+surface_material_override/0 = SubResource("StandardMaterial3D_vegem")
+
+[node name="ceiling" type="StaticBody3D" parent="borders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+visible = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="borders/ceiling"]
+shape = SubResource("BoxShape3D_esws5")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="borders/ceiling"]
+gi_mode = 0
+mesh = SubResource("BoxMesh_xunt0")
+skeleton = NodePath("../../wall left")
+surface_material_override/0 = SubResource("StandardMaterial3D_vegem")
+
+[node name="MovingStars" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.21797)
+layers = 2
+amount = 500
+fixed_fps = 60
+visibility_aabb = AABB(-5, -5, 0, 10, 10, 10)
+process_material = SubResource("ParticleProcessMaterial_3tx3q")
+draw_pass_1 = SubResource("BoxMesh_svfeb")
+
+[node name="temp" type="Sprite3D" parent="."]
+transform = Transform3D(4.4, 0, 0, 0, 3.96, 0, 0, 0, 2.5, 0, 0, -1.96432)
+visible = false
+texture = ExtResource("2_qedbi")
